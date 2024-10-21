@@ -21,6 +21,17 @@
 
 
 module ROM(
-
+    input wire CLK,
+    input wire nCS,
+    input wire [11:0] ADDR,
+    input wire nOE,
+    inout wire [15:0] DQ
     );
+    
+    
+    
+    
+    
+    
+    
 endmodule

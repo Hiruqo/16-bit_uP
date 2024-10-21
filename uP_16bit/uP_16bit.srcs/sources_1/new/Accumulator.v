@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns /1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -21,6 +21,18 @@
 
 
 module Accumulator(
-
+    input wire CLK,
+    input wire [15:0] D,
+    input wire CE,
+    output [15:0] OUT
     );
+    
+    reg [15:0] temp_reg;
+    
+    always @(posedge CLK)
+        if (CE)
+            temp_reg <= D;
+
+    assign OUT = temp_reg;
+
 endmodule
