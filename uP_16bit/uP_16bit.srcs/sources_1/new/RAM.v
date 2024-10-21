@@ -21,24 +21,24 @@
 
 module RAM(
     input wire CLK,
-    input wire nCS,
-    input wire [11:0] ADDR,
-    input wire nWR,
-    input wire nOE,
+    input wire CE,
+    input wire CS,
+    input wire [15:0] ADDR,
+    input wire WR,
     inout wire [15:0] DQ
     );
     
-    reg [15:0] MEM [4095:0];
+    reg [15:0] MEM [65_535:0];
     reg [15:0] data_out;
  
-    always @(posedge CLK)
-        if (~nCS & ~nWR)
-            MEM[ADDR] = DQ;
+    always @(posedge CLK) begin
+        if (CS & CE & WR)
+            MEM[ADDR] <= DQ;
             
-    always @(posedge CLK)
-        if (~nCS & nWR)
-            data_out = MEM[ADDR];
+        if (CS & CE & ~WR)
+            data_out <= MEM[ADDR];
+    end
     
-    assign DQ = (~nCS & ~nOE & nWR) ? data_out : 16'hzzzz;
+    assign DQ = (CS & CE & ~WR) ? data_out : 16'hzzzz;
     
 endmodule
