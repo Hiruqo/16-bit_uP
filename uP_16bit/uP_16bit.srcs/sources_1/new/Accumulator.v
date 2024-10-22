@@ -23,7 +23,6 @@
 module Accumulator(
     input wire CLK,
     input wire CE,
-    input wire CS,
     input wire [15:0] D,
     output [15:0] OUT
     );
@@ -31,7 +30,7 @@ module Accumulator(
     reg [15:0] temp_reg;
     
     always @(posedge CLK)
-        if (CS && CE)
+        if (CE)
             temp_reg <= D;
 
     assign OUT = temp_reg;
