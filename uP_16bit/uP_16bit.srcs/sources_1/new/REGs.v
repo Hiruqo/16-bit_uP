@@ -1,46 +1,29 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/21/2024 10:30:11 PM
-// Design Name: 
-// Module Name: REGs
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-module REGs(
+module REGs #(
+    parameter ADDR_WIDTH = 4,
+    parameter DATA_WIDTH = 32,
+    parameter DEPTH = 16
+    )(
     input wire CLK,
-    input wire CE,
     input wire CS,
-    input wire [15:0] ADDR,
-    input wire WR,
-    input wire [15:0] D,
-    output [15:0] OUT
+    input wire [ADDR_WIDTH-1:0] ADDR,
+    input wire WE,
+    input wire [DATA_WIDTH-1:0] D,
+    output [DATA_WIDTH-1:0] OUT
     );
     
-    reg [15:0] REG_mem [65_535:0];
-    reg [15:0] reg_out;
+    reg [DATA_WIDTH-1:0] REG_mem [2**DEPTH:0];
+    reg [DATA_WIDTH-1:0] reg_out;
     
     always @(posedge CLK) begin
-        if (CS & CE & WR)
+        if (CS & WE)
             REG_mem[ADDR] <= D;
             
-        if (CS & CE & ~WR)
+        if (CS & ~WE)
             reg_out <= REG_mem[ADDR];
     end
     
-    assign OUT = (CS & CE & ~WR) ? reg_out : 16'hzzzz;
+    assign OUT = (CS & ~WE) ? reg_out : 'hz;
     
 endmodule

@@ -5,11 +5,12 @@ Running: D:/Bibado/Vivado/2023.2/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 4 for port 'ADDR' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sim_1/new/RAM_tb.v:18]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.RAM
+Compiling module xil_defaultlib.RAM(DATA_WIDTH=16)
 Compiling module xil_defaultlib.RAM_tb
 Compiling module xil_defaultlib.glbl
 Built simulation snapshot RAM_tb_behav

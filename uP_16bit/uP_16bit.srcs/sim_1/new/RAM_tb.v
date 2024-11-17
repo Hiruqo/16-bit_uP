@@ -1,78 +1,54 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/17/2024 10:20:26 PM
-// Design Name: 
-// Module Name: RAM_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module RAM_tb();
+parameter ADDR_WIDTH = 4;
+parameter DATA_WIDTH = 16;
+parameter DEPTH = 16;
 
 reg clk;
 reg cs;
-reg [11:0] addr;
-reg wr;
-reg oe;
-wire [15:0] dq;
-reg [15:0] data_temp;
+reg [15:0] addr;
+reg we;
+reg [15:0] d;
+wire [15:0] out;
 
-RAM RAM_test_unit(
-    .CLK(clk)
-    ,.nCS(cs)
-    ,.ADDR(addr)
-    ,.nWR(wr)
-    ,.nOE(oe)
-    ,.DQ(dq)
+RAM #(.DATA_WIDTH(DATA_WIDTH)) RAM_test_unit (
+    .CLK(clk),
+    .CS(cs),
+    .ADDR(addr),
+    .WE(we),
+    .D(d),
+    .OUT(out)
 );
 
-always #1 clk = ~clk;
-assign dq = ~oe ? data_temp : 'hz;
+always #10 clk = ~clk;
 
 initial begin
-    clk = 1'b0;
+    {clk, cs, addr, we, d} <= 0;
+
+    repeat (2) @(posedge clk);
+    
     cs = 1;
-    addr = 12'd0;
-    wr = 1;
-    oe = 1;
-    data_temp = 0;
+    
+    repeat (5) @(posedge clk); ;
+    we = 1;
+    d = 5;
+    
+    repeat (5) @(posedge clk); 
+    d = 3;
+    addr = 1;
+    
+    repeat (5) @(posedge clk); 
+    addr = 0;
+    we = 0;
+    d = 0;
+    
+    repeat (5) @(posedge clk); 
+    addr = 1;
+
+    repeat (5) @(posedge clk); 
+    $finish;
 end
 
-
-initial begin
-    #20;
-    cs = 1'b0;
-    wr = 1'b0;
-    oe = 1'b1;
-    data_temp = 16'd5;
-    
-    #20
-    addr = 12'd1;
-    data_temp = 16'd20;
-    
-    #20;
-    wr = 1'b1;
-    oe = 1'b0;
-    addr = 12'd0;
-    
-    #20;
-    addr = 12'd1;
-    
-    #100;
-    $finish();
-end
 
 endmodule

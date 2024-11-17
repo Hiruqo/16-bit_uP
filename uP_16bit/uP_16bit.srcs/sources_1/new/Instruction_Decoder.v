@@ -1,25 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/08/2024 09:01:36 PM
-// Design Name: 
-// Module Name: Instruction_Decoder
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-`include "sys_params.vh"
 
 module Instruction_Decoder(
     input wire CLK,
@@ -33,7 +12,7 @@ module Instruction_Decoder(
     output reg PC_wrap,                 // floating for now
     
     // ALU instruction
-    output [5:0] ALU_inst,
+    output [5:0] ALU_operation,
     
     // Memory
     output reg [15:0] RAM_addr,
@@ -43,17 +22,22 @@ module Instruction_Decoder(
     output reg [15:0] INSTA_nmbr,
     
     // Muxes
-    output reg MUX_A_INST,          // 0 <- A   ,1 <- INST
-    output reg MUX_REG_RAM,         // 0 <- REG ,1 <- RAM
+    output reg MUX_SEL_A_INST,          // 0 <- A   ,1 <- INST
+    output reg MUX_SEL_REG_RAM,         // 0 <- REG ,1 <- RAM
+    
+    // CS
+    output reg CS_RAM,
+    output reg CS_REG,
     
     // WE
     output reg WE_RAM,
     output reg WE_REG,
     
-    // CS
-    output reg CS_RAM,
-    output reg CS_REG
+    // CE
+    output reg CE_A
     );
+
+    `include "instr_params.txt"
     
     always @(INSTRUCTION)
         case (INSTRUCTION[37:32])
@@ -67,8 +51,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -85,8 +69,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -103,8 +87,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -121,8 +105,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -139,8 +123,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -157,8 +141,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -175,8 +159,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -193,8 +177,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -211,8 +195,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -229,8 +213,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[31:16];
                 
@@ -247,8 +231,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[31:16];
                 
@@ -265,8 +249,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -283,8 +267,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -301,8 +285,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -319,8 +303,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -337,8 +321,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -355,8 +339,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -373,8 +357,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -391,8 +375,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -409,8 +393,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -427,8 +411,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -445,8 +429,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -463,8 +447,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -481,8 +465,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -499,8 +483,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -517,8 +501,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -535,8 +519,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[31:16];
                 
@@ -553,8 +537,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -571,8 +555,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -589,8 +573,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -607,8 +591,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -625,8 +609,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -643,8 +627,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -661,8 +645,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[31:16];
                 
@@ -679,8 +663,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -697,8 +681,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -715,8 +699,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -733,8 +717,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -751,8 +735,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[31:16];
                 
@@ -769,8 +753,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -787,8 +771,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -805,8 +789,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -823,8 +807,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -841,8 +825,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -859,8 +843,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -877,8 +861,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -895,8 +879,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -913,8 +897,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -931,8 +915,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -949,8 +933,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -967,8 +951,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -985,8 +969,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -1003,8 +987,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -1021,8 +1005,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= INSTRUCTION[15:0];
                 
@@ -1039,8 +1023,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -1057,8 +1041,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
                                 
-                MUX_A_INST      <= 1'b0;
-                MUX_REG_RAM     <= 1'b1;
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -1075,8 +1059,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
                                 
-                MUX_A_INST      <= 1'b1;
-                MUX_REG_RAM     <= 1'b0;
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -1103,8 +1087,8 @@ module Instruction_Decoder(
                 CS_RAM          <= 1'bx;
                 CS_REG          <= 1'bx;
                                 
-                MUX_A_INST      <= 1'bx;
-                MUX_REG_RAM     <= 1'bx;
+                MUX_SEL_A_INST      <= 1'bx;
+                MUX_SEL_REG_RAM     <= 1'bx;
                 
                 INSTA_nmbr      <= 16'hxxxx;
                 
@@ -1116,6 +1100,6 @@ module Instruction_Decoder(
             end
         endcase
     
-    assign ALU_inst = INSTRUCTION[37:32];
+    assign ALU_operation = INSTRUCTION[37:32];
     
 endmodule

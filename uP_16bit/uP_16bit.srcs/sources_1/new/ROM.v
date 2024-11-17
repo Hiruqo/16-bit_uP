@@ -1,30 +1,11 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 10/08/2024 08:59:00 PM
-// Design Name: 
-// Module Name: ROM
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-`include "sys_params.vh"
 
 module ROM(
     input wire [5:0] ADDR,
     output reg [37:0] OUT
     );
+
+    `include "global_parameters.txt"
     
     // ==========================================================
     //  ----- ----- ----- - always comb loop - ----- ----- ----- 
