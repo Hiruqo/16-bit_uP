@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="TB_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="TB" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="112.310 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="137"></NameColumnWidth>
+      <ValueColumnWidth column_width="59"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="69" />
+   <wvobject fp_name="/TB/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/CLK_btn" type="logic">
+      <obj_property name="ElementShortName">CLK_btn</obj_property>
+      <obj_property name="ObjectShortName">CLK_btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/RST_btn" type="logic">
+      <obj_property name="ElementShortName">RST_btn</obj_property>
+      <obj_property name="ObjectShortName">RST_btn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/CARRY" type="logic">
+      <obj_property name="ElementShortName">CARRY</obj_property>
+      <obj_property name="ObjectShortName">CARRY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/ANODES_OUT" type="array">
+      <obj_property name="ElementShortName">ANODES_OUT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ANODES_OUT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/SEG_NMBR_OUT" type="array">
+      <obj_property name="ElementShortName">SEG_NMBR_OUT[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SEG_NMBR_OUT[6:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider39">
+      <obj_property name="label">PC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/RST" type="logic">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/WRAP_FLAG" type="logic">
+      <obj_property name="ElementShortName">WRAP_FLAG</obj_property>
+      <obj_property name="ObjectShortName">WRAP_FLAG</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/NOOP_FLAG" type="logic">
+      <obj_property name="ElementShortName">NOOP_FLAG</obj_property>
+      <obj_property name="ObjectShortName">NOOP_FLAG</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/Q" type="array">
+      <obj_property name="ElementShortName">Q[5:0]</obj_property>
+      <obj_property name="ObjectShortName">Q[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider45">
+      <obj_property name="label">ROM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/rom_unit/ADDR" type="array">
+      <obj_property name="ElementShortName">ADDR[5:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/rom_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[37:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[37:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider48">
+      <obj_property name="label">INSTR_DECODER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/INSTRUCTION" type="array">
+      <obj_property name="ElementShortName">INSTRUCTION[37:0]</obj_property>
+      <obj_property name="ObjectShortName">INSTRUCTION[37:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_noop" type="logic">
+      <obj_property name="ElementShortName">PC_noop</obj_property>
+      <obj_property name="ObjectShortName">PC_noop</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_jmp_addr" type="array">
+      <obj_property name="ElementShortName">PC_jmp_addr[5:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_jmp_addr[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_wrap" type="logic">
+      <obj_property name="ElementShortName">PC_wrap</obj_property>
+      <obj_property name="ObjectShortName">PC_wrap</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/ALU_operation" type="array">
+      <obj_property name="ElementShortName">ALU_operation[5:0]</obj_property>
+      <obj_property name="ObjectShortName">ALU_operation[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/RAM_addr" type="array">
+      <obj_property name="ElementShortName">RAM_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">RAM_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/REG_addr" type="array">
+      <obj_property name="ElementShortName">REG_addr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">REG_addr[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/INSTA_nmbr" type="array">
+      <obj_property name="ElementShortName">INSTA_nmbr[15:0]</obj_property>
+      <obj_property name="ObjectShortName">INSTA_nmbr[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/MUX_SEL_A_INST" type="logic">
+      <obj_property name="ElementShortName">MUX_SEL_A_INST</obj_property>
+      <obj_property name="ObjectShortName">MUX_SEL_A_INST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/MUX_SEL_REG_RAM" type="logic">
+      <obj_property name="ElementShortName">MUX_SEL_REG_RAM</obj_property>
+      <obj_property name="ObjectShortName">MUX_SEL_REG_RAM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/CS_RAM" type="logic">
+      <obj_property name="ElementShortName">CS_RAM</obj_property>
+      <obj_property name="ObjectShortName">CS_RAM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/CS_REG" type="logic">
+      <obj_property name="ElementShortName">CS_REG</obj_property>
+      <obj_property name="ObjectShortName">CS_REG</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/WE_RAM" type="logic">
+      <obj_property name="ElementShortName">WE_RAM</obj_property>
+      <obj_property name="ObjectShortName">WE_RAM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/WE_REG" type="logic">
+      <obj_property name="ElementShortName">WE_REG</obj_property>
+      <obj_property name="ObjectShortName">WE_REG</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/CE_A" type="logic">
+      <obj_property name="ElementShortName">CE_A</obj_property>
+      <obj_property name="ObjectShortName">CE_A</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider65">
+      <obj_property name="label">RAM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/ram_unit/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/ram_unit/CS" type="logic">
+      <obj_property name="ElementShortName">CS</obj_property>
+      <obj_property name="ObjectShortName">CS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/ram_unit/ADDR" type="array">
+      <obj_property name="ElementShortName">ADDR[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/ram_unit/WE" type="logic">
+      <obj_property name="ElementShortName">WE</obj_property>
+      <obj_property name="ObjectShortName">WE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/ram_unit/D" type="array">
+      <obj_property name="ElementShortName">D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">D[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/ram_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider72">
+      <obj_property name="label">REG</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/regs_unit/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/regs_unit/CS" type="logic">
+      <obj_property name="ElementShortName">CS</obj_property>
+      <obj_property name="ObjectShortName">CS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/regs_unit/ADDR" type="array">
+      <obj_property name="ElementShortName">ADDR[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/regs_unit/WE" type="logic">
+      <obj_property name="ElementShortName">WE</obj_property>
+      <obj_property name="ObjectShortName">WE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/regs_unit/D" type="array">
+      <obj_property name="ElementShortName">D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">D[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/regs_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider47">
+      <obj_property name="label">MUX_INST_A</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_inst_accu_unit/IN1" type="array">
+      <obj_property name="ElementShortName">IN1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IN1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_inst_accu_unit/IN0" type="array">
+      <obj_property name="ElementShortName">IN0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IN0[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_inst_accu_unit/SEL" type="logic">
+      <obj_property name="ElementShortName">SEL</obj_property>
+      <obj_property name="ObjectShortName">SEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_inst_accu_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider52">
+      <obj_property name="label">MUX_REG_RAM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_reg_ram_unit/IN1" type="array">
+      <obj_property name="ElementShortName">IN1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IN1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_reg_ram_unit/IN0" type="array">
+      <obj_property name="ElementShortName">IN0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IN0[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_reg_ram_unit/SEL" type="logic">
+      <obj_property name="ElementShortName">SEL</obj_property>
+      <obj_property name="ObjectShortName">SEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/mux_reg_ram_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider57">
+      <obj_property name="label">ALU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/alu_unit/INSTRUCTION" type="array">
+      <obj_property name="ElementShortName">INSTRUCTION[5:0]</obj_property>
+      <obj_property name="ObjectShortName">INSTRUCTION[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/alu_unit/IN1" type="array">
+      <obj_property name="ElementShortName">IN1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IN1[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/alu_unit/IN0" type="array">
+      <obj_property name="ElementShortName">IN0[15:0]</obj_property>
+      <obj_property name="ObjectShortName">IN0[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/alu_unit/CARRY" type="logic">
+      <obj_property name="ElementShortName">CARRY</obj_property>
+      <obj_property name="ObjectShortName">CARRY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/alu_unit/temp_out" type="array">
+      <obj_property name="ElementShortName">temp_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temp_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/alu_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider63">
+      <obj_property name="label">ACCUMULATOR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/acu_unit/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/acu_unit/CE" type="logic">
+      <obj_property name="ElementShortName">CE</obj_property>
+      <obj_property name="ObjectShortName">CE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/acu_unit/D" type="array">
+      <obj_property name="ElementShortName">D[15:0]</obj_property>
+      <obj_property name="ObjectShortName">D[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/acu_unit/temp_reg" type="array">
+      <obj_property name="ElementShortName">temp_reg[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temp_reg[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/acu_unit/OUT" type="array">
+      <obj_property name="ElementShortName">OUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+   </wvobject>
+</wave_config>

@@ -15,6 +15,11 @@ module ALU(
     
     always @(*) begin
         case(INSTRUCTION)
+            NOOP : begin
+                temp_out = temp_out;
+                temp_carry = temp_carry;
+            end
+        
             // --------------
             // - MOV section
             // --------------
@@ -277,7 +282,10 @@ module ALU(
             // ------------------
             // TODO
             
-            default : {temp_carry, temp_out} = 0;
+            default : begin
+                temp_carry = 0;
+                temp_out = 0;
+            end
         endcase
     end
     

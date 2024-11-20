@@ -42,7 +42,23 @@ module Instruction_Decoder(
     always @(INSTRUCTION)
         case (INSTRUCTION[37:32])
             NOOP : begin
-                PC_noop <= 1'b1;         
+                PC_noop <= 1'b1;
+                
+                CS_RAM          <= CS_RAM;
+                CS_REG          <= CS_REG;
+                                
+                MUX_SEL_A_INST      <= MUX_SEL_A_INST;
+                MUX_SEL_REG_RAM     <= MUX_SEL_REG_RAM;
+                
+                INSTA_nmbr      <= INSTA_nmbr;
+                
+                RAM_addr        <= RAM_addr;
+                REG_addr        <= REG_addr;
+                
+                WE_RAM          <= WE_RAM;
+                WE_REG          <= WE_REG;
+                
+                CE_A            <= CE_A;
             end
             
             MOV_A_INST : begin
@@ -61,6 +77,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             MOV_A_RAM : begin
@@ -79,6 +97,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             MOV_A_REG : begin
@@ -97,6 +117,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             MOV_REG_A : begin
@@ -115,6 +137,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b1;
+                
+                CE_A            <= 1'b0;
             end
             
             MOV_RAM_A : begin
@@ -133,6 +157,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b1;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b0;
             end
             
             ADD_RAM_INST : begin
@@ -151,6 +177,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             ADD_REG_INST : begin
@@ -169,6 +197,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             ADD_RAM_A : begin
@@ -187,6 +217,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             ADD_REG_A : begin
@@ -205,6 +237,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_INST_RAM : begin
@@ -223,6 +257,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_INST_REG : begin
@@ -241,6 +277,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_A_RAM : begin
@@ -259,6 +297,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_A_REG : begin
@@ -277,6 +317,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_RAM_INST : begin
@@ -295,6 +337,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_RAM_A : begin
@@ -313,6 +357,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_REG_INST : begin
@@ -331,6 +377,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             SUB_REG_A : begin
@@ -349,6 +397,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             INC_INST : begin
@@ -367,6 +417,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             INC_A : begin
@@ -385,6 +437,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             INC_REG : begin
@@ -403,6 +457,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             INC_RAM : begin
@@ -421,6 +477,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             DEC_INST : begin
@@ -439,6 +497,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             DEC_A : begin
@@ -457,6 +517,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             DEC_REG : begin
@@ -475,6 +537,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             DEC_RAM : begin
@@ -493,6 +557,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_INST_REG : begin
@@ -511,6 +577,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_INST_RAM : begin
@@ -529,6 +597,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_A_REG : begin
@@ -547,6 +617,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_A_RAM : begin
@@ -565,6 +637,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_REG_INST : begin
@@ -583,6 +657,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_REG_A : begin
@@ -601,6 +677,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_RAM_INST : begin
@@ -619,6 +697,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_H_RAM_A : begin
@@ -637,6 +717,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_E_INST_REG : begin
@@ -655,6 +737,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_E_INST_RAM : begin
@@ -673,6 +757,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_E_A_REG : begin
@@ -691,6 +777,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
              
             CMP_E_A_RAM : begin
@@ -709,6 +797,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_INST_REG : begin
@@ -727,6 +817,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_INST_RAM : begin
@@ -745,6 +837,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_A_REG : begin
@@ -763,6 +857,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_A_RAM : begin
@@ -781,6 +877,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_REG_INST : begin
@@ -799,6 +897,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_REG_A : begin
@@ -817,6 +917,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_RAM_INST : begin
@@ -835,6 +937,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             CMP_L_RAM_A : begin
@@ -853,6 +957,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             NOT_INST : begin
@@ -871,6 +977,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             NOT_A : begin
@@ -889,6 +997,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             NOT_RAM : begin
@@ -907,6 +1017,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             NOT_REG : begin
@@ -925,6 +1037,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             R_SHIFT_INST : begin
@@ -943,6 +1057,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             R_SHIFT_A : begin
@@ -961,6 +1077,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             R_SHIFT_RAM : begin
@@ -979,6 +1097,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             R_SHIFT_REG : begin
@@ -997,6 +1117,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             L_SHIFT_INST : begin
@@ -1015,6 +1137,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             L_SHIFT_A : begin
@@ -1033,6 +1157,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             L_SHIFT_RAM : begin
@@ -1051,6 +1177,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             L_SHIFT_REG : begin
@@ -1069,6 +1197,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'b0;
                 WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
             end
             
             JMP_rA : begin
@@ -1097,6 +1227,8 @@ module Instruction_Decoder(
                 
                 WE_RAM          <= 1'bx;
                 WE_REG          <= 1'bx;
+                
+                CE_A            <= 1'b0;
             end
         endcase
     

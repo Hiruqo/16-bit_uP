@@ -157,12 +157,13 @@ Mux2x1 mux_reg_ram_unit(
 // -- ALU
 // --
 wire [15:0] ALU_OUT;
+wire ALU_CARRY;
 
 ALU alu_unit(
     .INSTRUCTION(INSTRUCTION_ALU_OPERATION),
     .IN1(MUX_REG_RAM_OUT),
     .IN0(MUX_A_INST_OUT),
-    .CARRY(CARRY),
+    .CARRY(ALU_CARRY),
     .OUT(ALU_OUT)
 );
 
@@ -212,5 +213,8 @@ SEG_DECODER seg_disp_decoder_unit(
     .ACU_DATA(A_FOR_TESTING),
     .DATA_OUT(SEG_NMBR_OUT)                 // 7'bxxxxxxx number
 );
+
+
+assign CARRY = RST_btn ? 1'b0 : ALU_CARRY;
 
 endmodule
