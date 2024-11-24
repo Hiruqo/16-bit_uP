@@ -2,6 +2,8 @@
 
 module TB;
 
+integer i = 0;
+
 reg CLK;        // 100 MHz
 reg CLK_btn;    // button clock
 reg RST_btn;    
@@ -30,57 +32,13 @@ initial begin
     repeat (5) @(posedge CLK);
     RST_btn <= 0;
     
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
+    for (i = 0; i < 20; i = i + 1) begin
+        repeat (5) @(posedge CLK);
 
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
-    
-    repeat (5) @(posedge CLK);
-
-    CLK_btn <= 1;
-    @(posedge CLK);
-    CLK_btn <= 0;
+        CLK_btn <= 1;
+        @(posedge CLK);
+        CLK_btn <= 0;
+    end
 
     repeat (5) @(posedge CLK);
     $finish;

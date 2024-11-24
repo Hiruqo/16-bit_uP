@@ -6,9 +6,15 @@ module Instruction_Decoder(
     // instruction
     input wire [37:0] INSTRUCTION,
     
+    // PC pathed jump cancel
+    input wire PC_jmp_pathed_end,
+    
     // PC management
     output reg PC_noop,
+    output reg PC_jmp,
+    output PC_jmp_pathed,
     output reg [5:0] PC_jmp_addr,       // floating for now
+    output reg [5:0] PC_jmp_nmbr_of_ticks,
     output reg PC_wrap,                 // floating for now
     
     // ALU instruction
@@ -43,6 +49,7 @@ module Instruction_Decoder(
         case (INSTRUCTION[37:32])
             NOOP : begin
                 PC_noop <= 1'b1;
+                PC_jmp  <= 1'b0;
                 
                 CS_RAM          <= CS_RAM;
                 CS_REG          <= CS_REG;
@@ -63,6 +70,7 @@ module Instruction_Decoder(
             
             MOV_A_INST : begin
                 PC_noop         <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
                 
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -83,6 +91,7 @@ module Instruction_Decoder(
             
             MOV_A_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -103,6 +112,7 @@ module Instruction_Decoder(
             
             MOV_A_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -123,6 +133,7 @@ module Instruction_Decoder(
             
             MOV_REG_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -143,6 +154,7 @@ module Instruction_Decoder(
             
             MOV_RAM_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -163,6 +175,7 @@ module Instruction_Decoder(
             
             ADD_RAM_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -183,6 +196,7 @@ module Instruction_Decoder(
             
             ADD_REG_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -203,6 +217,7 @@ module Instruction_Decoder(
             
             ADD_RAM_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -223,6 +238,7 @@ module Instruction_Decoder(
             
             ADD_REG_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -243,6 +259,7 @@ module Instruction_Decoder(
             
             SUB_INST_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -263,6 +280,7 @@ module Instruction_Decoder(
             
             SUB_INST_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -283,6 +301,7 @@ module Instruction_Decoder(
             
             SUB_A_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -303,6 +322,7 @@ module Instruction_Decoder(
             
             SUB_A_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -323,6 +343,7 @@ module Instruction_Decoder(
             
             SUB_RAM_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -343,6 +364,7 @@ module Instruction_Decoder(
             
             SUB_RAM_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -363,6 +385,7 @@ module Instruction_Decoder(
             
             SUB_REG_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -383,6 +406,7 @@ module Instruction_Decoder(
             
             SUB_REG_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -403,6 +427,7 @@ module Instruction_Decoder(
             
             INC_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
                 
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -423,6 +448,7 @@ module Instruction_Decoder(
             
             INC_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -443,6 +469,7 @@ module Instruction_Decoder(
             
             INC_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -463,6 +490,7 @@ module Instruction_Decoder(
             
             INC_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -483,6 +511,7 @@ module Instruction_Decoder(
             
             DEC_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -503,6 +532,7 @@ module Instruction_Decoder(
             
             DEC_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -523,6 +553,7 @@ module Instruction_Decoder(
             
             DEC_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -543,6 +574,7 @@ module Instruction_Decoder(
             
             DEC_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -563,6 +595,7 @@ module Instruction_Decoder(
             
             CMP_H_INST_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -583,6 +616,7 @@ module Instruction_Decoder(
             
             CMP_H_INST_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -603,6 +637,7 @@ module Instruction_Decoder(
             
             CMP_H_A_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -623,6 +658,7 @@ module Instruction_Decoder(
             
             CMP_H_A_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -643,6 +679,7 @@ module Instruction_Decoder(
             
             CMP_H_REG_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -663,6 +700,7 @@ module Instruction_Decoder(
             
             CMP_H_REG_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -683,6 +721,7 @@ module Instruction_Decoder(
             
             CMP_H_RAM_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -703,6 +742,7 @@ module Instruction_Decoder(
             
             CMP_H_RAM_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -723,6 +763,7 @@ module Instruction_Decoder(
             
             CMP_E_INST_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -743,6 +784,7 @@ module Instruction_Decoder(
             
             CMP_E_INST_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -763,6 +805,7 @@ module Instruction_Decoder(
             
             CMP_E_A_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
                 
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -783,6 +826,7 @@ module Instruction_Decoder(
              
             CMP_E_A_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
                 
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -803,6 +847,7 @@ module Instruction_Decoder(
             
             CMP_L_INST_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -823,6 +868,7 @@ module Instruction_Decoder(
             
             CMP_L_INST_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -843,6 +889,7 @@ module Instruction_Decoder(
             
             CMP_L_A_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -863,6 +910,7 @@ module Instruction_Decoder(
             
             CMP_L_A_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -883,6 +931,7 @@ module Instruction_Decoder(
             
             CMP_L_REG_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -903,6 +952,7 @@ module Instruction_Decoder(
             
             CMP_L_REG_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -923,6 +973,7 @@ module Instruction_Decoder(
             
             CMP_L_RAM_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -943,6 +994,7 @@ module Instruction_Decoder(
             
             CMP_L_RAM_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -963,6 +1015,7 @@ module Instruction_Decoder(
             
             NOT_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -983,6 +1036,7 @@ module Instruction_Decoder(
             
             NOT_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -1003,6 +1057,7 @@ module Instruction_Decoder(
             
             NOT_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -1023,6 +1078,7 @@ module Instruction_Decoder(
             
             NOT_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -1043,6 +1099,7 @@ module Instruction_Decoder(
             
             R_SHIFT_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -1063,6 +1120,7 @@ module Instruction_Decoder(
             
             R_SHIFT_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -1083,6 +1141,7 @@ module Instruction_Decoder(
             
             R_SHIFT_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -1103,6 +1162,7 @@ module Instruction_Decoder(
             
             R_SHIFT_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -1123,6 +1183,7 @@ module Instruction_Decoder(
             
             L_SHIFT_INST : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -1143,6 +1204,7 @@ module Instruction_Decoder(
             
             L_SHIFT_A : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b0;
@@ -1163,6 +1225,7 @@ module Instruction_Decoder(
             
             L_SHIFT_RAM : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b1;
                 CS_REG          <= 1'b0;
@@ -1183,6 +1246,7 @@ module Instruction_Decoder(
             
             L_SHIFT_REG : begin
                 PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
             
                 CS_RAM          <= 1'b0;
                 CS_REG          <= 1'b1;
@@ -1203,16 +1267,19 @@ module Instruction_Decoder(
             
             JMP_rA : begin
                 PC_noop <= 1'b0; // Close the NOOP
-            
+                PC_jmp <= 1'b1;
+                PC_jmp_addr <= INSTRUCTION[5:0];
             end
             
             JMP_rA_ra : begin
                 PC_noop <= 1'b0; // Close the NOOP
-            
+                PC_jmp_addr <= INSTRUCTION[5:0];
+                PC_jmp_nmbr_of_ticks <= INSTRUCTION[21:16];
             end
             
             default : begin
                 PC_noop <= 1'b1;
+                PC_jmp  <= 1'b0;
                 
                 CS_RAM          <= 1'bx;
                 CS_REG          <= 1'bx;
@@ -1233,5 +1300,6 @@ module Instruction_Decoder(
         endcase
     
     assign ALU_operation = INSTRUCTION[37:32];
+    assign PC_jmp_pathed = ((INSTRUCTION[37:32] == JMP_rA_ra) && PC_jmp_pathed_end) ? 1'b1 : 1'b0;
     
 endmodule

@@ -4,7 +4,9 @@ module ALU(
     input wire [5:0] INSTRUCTION,
     input wire [15:0] IN1,
     input wire [15:0] IN0,
+    input wire CARRY_IN,
     output CARRY,
+    output ZERO_FLAG,
     output [15:0] OUT
     );
     
@@ -39,56 +41,56 @@ module ALU(
             // - ADD section
             // --------------
             ADD_RAM_INST : begin
-                {temp_carry, temp_out} = IN1 + IN0;
+                {temp_carry, temp_out} = IN1 + IN0 + CARRY_IN;
             end
             
             ADD_REG_INST : begin
-                {temp_carry, temp_out} = IN1 + IN0;
+                {temp_carry, temp_out} = IN1 + IN0 + CARRY_IN;
             end
             
             ADD_RAM_A : begin
-                {temp_carry, temp_out} = IN1 + IN0;
+                {temp_carry, temp_out} = IN1 + IN0 + CARRY_IN;
             end
             
             ADD_REG_A : begin
-                {temp_carry, temp_out} = IN1 + IN0;
+                {temp_carry, temp_out} = IN1 + IN0 + CARRY_IN;
             end
             
             // --------------
             // - SUB section
             // --------------
             SUB_INST_RAM : begin
-                temp_out = IN0 - IN1;
+                temp_out = IN0 - IN1 + CARRY_IN;
             end
             
             SUB_INST_REG : begin
-                temp_out = IN0 - IN1;
+                temp_out = IN0 - IN1 + CARRY_IN;
             end
             
             SUB_A_RAM : begin
-                temp_out = IN0 - IN1;
+                temp_out = IN0 - IN1 + CARRY_IN;
             end
             
             SUB_A_REG : begin
-                temp_out = IN0 - IN1;
+                temp_out = IN0 - IN1 + CARRY_IN;
             end
            
             // --
            
             SUB_RAM_INST : begin
-                temp_out = IN1 - IN0;
+                temp_out = IN1 - IN0 + CARRY_IN;
             end
             
             SUB_RAM_A : begin
-                temp_out = IN1 - IN0;
+                temp_out = IN1 - IN0 + CARRY_IN;
             end
             
             SUB_REG_INST : begin
-                temp_out = IN1 - IN0;
+                temp_out = IN1 - IN0 + CARRY_IN;
             end
             
             SUB_REG_A : begin
-                temp_out = IN1 - IN0;
+                temp_out = IN1 - IN0 + CARRY_IN;
             end
             
             // --------------
@@ -291,6 +293,7 @@ module ALU(
     
     assign OUT = temp_out;
     assign CARRY = temp_carry;
+    assign ZERO_FLAG = (OUT == 0) ? 1'b1 : 1'b0;
     
 endmodule
 

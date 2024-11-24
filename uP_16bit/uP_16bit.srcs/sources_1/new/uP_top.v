@@ -6,6 +6,7 @@ module uP_top(
     input wire RST_btn,
     
     output CARRY,
+    output ZERO,
     output [3:0] ANODES_OUT,
     output [6:0] SEG_NMBR_OUT
 );
@@ -17,9 +18,16 @@ module uP_top(
 // Instruction_Decoder <line 40>
 wire INSTRUCTION_NOOP;
 wire INSTRUCTION_PC_WRAP;
+wire INSTRUCTION_JMP;
+wire INSTRUCTION_JMP_PATHED;
+wire [5:0] INSTRUCTION_PC_JMP_ADDR;
+wire [5:0] INSTRUCTION_JMP_NMBR_OF_TICKS;
 
 // Accumulator Spitter <line 180>
 wire [15:0] A_FOR_CIRCUIT;
+
+// ALU <line 183>
+wire ALU_CARRY;
 
 // =========================================================
 // =========================================================
@@ -28,6 +36,7 @@ wire [15:0] A_FOR_CIRCUIT;
 // -----------------------------
 // -- PC_Counter
 // --
+wire PC_PATHED_JUMP_END_FLAG;
 wire [5:0] PC_Q;
 
 PC_Counter pc_unit(
@@ -35,6 +44,11 @@ PC_Counter pc_unit(
     .RST(RST_btn),
     .WRAP_FLAG(INSTRUCTION_PC_WRAP),
     .NOOP_FLAG(INSTRUCTION_NOOP),
+    .PC_JMP(INSTRUCTION_JMP),
+    .PC_JMP_PATHED(INSTRUCTION_JMP_PATHED),
+    .jmp_ADDR(INSTRUCTION_PC_JMP_ADDR),
+    .jmp_NMBR_OF_TICKS(INSTRUCTION_JMP_NMBR_OF_TICKS),
+    .PATHED_JUMP_END_FLAG(PC_PATHED_JUMP_END_FLAG),
     .Q(PC_Q)
 );
 
@@ -51,8 +65,6 @@ ROM rom_unit(
 // -----------------------------
 // -- Instruction_Decoder
 // --
-wire [5:0] INSTRUCTION_PC_JMP_ADDR;
-
 wire [5:0] INSTRUCTION_ALU_OPERATION;
 
 wire [15:0] INSTRUCTION_RAM_ADDR;
@@ -76,8 +88,13 @@ Instruction_Decoder inst_decoder_unit(
     
     .INSTRUCTION(ROM_OUT),
     
+    .PC_jmp_pathed_end(PC_PATHED_JUMP_END_FLAG),
+    
     .PC_noop(INSTRUCTION_NOOP),
+    .PC_jmp(INSTRUCTION_JMP),
+    .PC_jmp_pathed(INSTRUCTION_JMP_PATHED),
     .PC_jmp_addr(INSTRUCTION_PC_JMP_ADDR),
+    .PC_jmp_nmbr_of_ticks(INSTRUCTION_JMP_NMBR_OF_TICKS),
     .PC_wrap(INSTRUCTION_PC_WRAP),
     
     .ALU_operation(INSTRUCTION_ALU_OPERATION),
@@ -154,16 +171,30 @@ Mux2x1 mux_reg_ram_unit(
 );
 
 // -----------------------------
+// -- D_flop for ALU's CARRY signal
+// --
+wire D_FLOP_CARRY_IN;
+
+D_flop D_Carry_flop_unit(
+    .CLK(CLK_btn),
+    .RST(RST_btn),
+    .D(ALU_CARRY),
+    .Q(D_FLOP_CARRY_IN)
+);
+
+// -----------------------------
 // -- ALU
 // --
 wire [15:0] ALU_OUT;
-wire ALU_CARRY;
+wire ALU_ZERO_FLAG;
 
 ALU alu_unit(
     .INSTRUCTION(INSTRUCTION_ALU_OPERATION),
     .IN1(MUX_REG_RAM_OUT),
     .IN0(MUX_A_INST_OUT),
+    .CARRY_IN(D_FLOP_CARRY_IN),
     .CARRY(ALU_CARRY),
+    .ZERO_FLAG(ALU_ZERO_FLAG),
     .OUT(ALU_OUT)
 );
 
@@ -216,5 +247,6 @@ SEG_DECODER seg_disp_decoder_unit(
 
 
 assign CARRY = RST_btn ? 1'b0 : ALU_CARRY;
+assign ZERO = ALU_ZERO_FLAG;
 
 endmodule

@@ -91,6 +91,7 @@ read_verilog -library xil_defaultlib {
   C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ANODE_SWITCHER.v
   C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Accumulator.v
   C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Accumulator_splitter.v
+  C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/D_flop.v
   C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v
   C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Mux2x1.v
   C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/PC_Counter.v

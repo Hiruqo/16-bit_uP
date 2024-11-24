@@ -3,8 +3,8 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Sun Nov 17 01:45:37 2024
-# Process ID: 17836
+# Start of session at: Sun Nov 24 00:52:39 2024
+# Process ID: 17376
 # Current directory: C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.runs/synth_1
 # Command line: vivado.exe -log uP_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source uP_top.tcl
 # Log file: C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.runs/synth_1/uP_top.vds
@@ -12,7 +12,7 @@
 # Running On: DESKTOP-HGV327J, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 14877 MB
 #-----------------------------------------------------------
 source uP_top.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 520.520 ; gain = 214.195
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 520.453 ; gain = 215.703
 Command: read_checkpoint -auto_incremental -incremental C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/utils_1/imports/synth_1/uP_top.dcp
 INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/utils_1/imports/synth_1/uP_top.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
@@ -25,9 +25,9 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 19492
+INFO: [Synth 8-7075] Helper process launched with PID 1428
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1354.418 ; gain = 439.656
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1353.270 ; gain = 438.875
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'uP_top' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:3]
 INFO: [Synth 8-6157] synthesizing module 'PC_Counter' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/PC_Counter.v:3]
@@ -35,17 +35,27 @@ INFO: [Synth 8-6155] done synthesizing module 'PC_Counter' (0#1) [C:/Users/skobe
 INFO: [Synth 8-6157] synthesizing module 'ROM' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ROM.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'ROM' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ROM.v:3]
 INFO: [Synth 8-6157] synthesizing module 'Instruction_Decoder' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:3]
+WARNING: [Synth 8-567] referenced signal 'CS_RAM' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'CS_REG' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'MUX_SEL_A_INST' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'MUX_SEL_REG_RAM' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'INSTA_nmbr' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'RAM_addr' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'REG_addr' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'WE_RAM' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'WE_REG' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
+WARNING: [Synth 8-567] referenced signal 'CE_A' should be on the sensitivity list [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:48]
 INFO: [Synth 8-6155] done synthesizing module 'Instruction_Decoder' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:3]
 INFO: [Synth 8-6157] synthesizing module 'RAM' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/RAM.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'RAM' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/RAM.v:3]
-WARNING: [Synth 8-689] width (16) of port connection 'ADDR' does not match port width (4) of module 'RAM' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:111]
-WARNING: [Synth 8-689] width (16) of port connection 'OUT' does not match port width (32) of module 'RAM' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:114]
+WARNING: [Synth 8-689] width (16) of port connection 'ADDR' does not match port width (4) of module 'RAM' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:128]
 INFO: [Synth 8-6157] synthesizing module 'REGs' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/REGs.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'REGs' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/REGs.v:3]
-WARNING: [Synth 8-689] width (16) of port connection 'ADDR' does not match port width (4) of module 'REGs' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:126]
-WARNING: [Synth 8-689] width (16) of port connection 'OUT' does not match port width (32) of module 'REGs' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:129]
+WARNING: [Synth 8-689] width (16) of port connection 'ADDR' does not match port width (4) of module 'REGs' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:143]
 INFO: [Synth 8-6157] synthesizing module 'Mux2x1' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Mux2x1.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'Mux2x1' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Mux2x1.v:3]
+INFO: [Synth 8-6157] synthesizing module 'D_flop' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/D_flop.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'D_flop' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/D_flop.v:3]
 INFO: [Synth 8-6157] synthesizing module 'ALU' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ALU.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'ALU' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ALU.v:3]
 INFO: [Synth 8-6157] synthesizing module 'Accumulator' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Accumulator.v:3]
@@ -61,31 +71,22 @@ INFO: [Synth 8-226] default block is never used [C:/Users/skobe/Desktop/uP/16-bi
 INFO: [Synth 8-226] default block is never used [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/SEG_DECODER.v:73]
 INFO: [Synth 8-6155] done synthesizing module 'SEG_DECODER' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/SEG_DECODER.v:3]
 INFO: [Synth 8-6155] done synthesizing module 'uP_top' (0#1) [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:3]
-WARNING: [Synth 8-3848] Net PC_jmp_addr in module/entity Instruction_Decoder does not have driver. [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:11]
-WARNING: [Synth 8-3848] Net PC_wrap in module/entity Instruction_Decoder does not have driver. [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:12]
-WARNING: [Synth 8-3848] Net CE_A in module/entity Instruction_Decoder does not have driver. [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:37]
-WARNING: [Synth 8-7129] Port PC_jmp_addr[5] in module Instruction_Decoder is either unconnected or has no load
-WARNING: [Synth 8-7129] Port PC_jmp_addr[4] in module Instruction_Decoder is either unconnected or has no load
-WARNING: [Synth 8-7129] Port PC_jmp_addr[3] in module Instruction_Decoder is either unconnected or has no load
-WARNING: [Synth 8-7129] Port PC_jmp_addr[2] in module Instruction_Decoder is either unconnected or has no load
-WARNING: [Synth 8-7129] Port PC_jmp_addr[1] in module Instruction_Decoder is either unconnected or has no load
-WARNING: [Synth 8-7129] Port PC_jmp_addr[0] in module Instruction_Decoder is either unconnected or has no load
+WARNING: [Synth 8-3848] Net PC_wrap in module/entity Instruction_Decoder does not have driver. [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:18]
 WARNING: [Synth 8-7129] Port PC_wrap in module Instruction_Decoder is either unconnected or has no load
-WARNING: [Synth 8-7129] Port CE_A in module Instruction_Decoder is either unconnected or has no load
 WARNING: [Synth 8-7129] Port CLK in module Instruction_Decoder is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1467.887 ; gain = 553.125
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1469.398 ; gain = 555.004
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1467.887 ; gain = 553.125
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1469.398 ; gain = 555.004
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1467.887 ; gain = 553.125
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1469.398 ; gain = 555.004
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1467.887 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1469.398 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -96,73 +97,80 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/uP_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1561.695 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1557.121 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1561.695 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1557.121 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-327] inferring latch for variable 'RAM_addr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:59]
-WARNING: [Synth 8-327] inferring latch for variable 'REG_addr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:60]
-WARNING: [Synth 8-327] inferring latch for variable 'INSTA_nmbr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:57]
-WARNING: [Synth 8-327] inferring latch for variable 'MUX_SEL_A_INST_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:54]
-WARNING: [Synth 8-327] inferring latch for variable 'MUX_SEL_REG_RAM_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:55]
-WARNING: [Synth 8-327] inferring latch for variable 'CS_RAM_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:51]
-WARNING: [Synth 8-327] inferring latch for variable 'CS_REG_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:52]
-WARNING: [Synth 8-327] inferring latch for variable 'WE_RAM_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:62]
-WARNING: [Synth 8-327] inferring latch for variable 'WE_REG_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:63]
-WARNING: [Synth 8-327] inferring latch for variable 'temp_carry_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ALU.v:37]
+WARNING: [Synth 8-327] inferring latch for variable 'PC_jmp_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:52]
+WARNING: [Synth 8-327] inferring latch for variable 'PC_jmp_addr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:1271]
+WARNING: [Synth 8-327] inferring latch for variable 'PC_jmp_nmbr_of_ticks_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:1277]
+WARNING: [Synth 8-327] inferring latch for variable 'RAM_addr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:62]
+WARNING: [Synth 8-327] inferring latch for variable 'REG_addr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:63]
+WARNING: [Synth 8-327] inferring latch for variable 'INSTA_nmbr_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:60]
+WARNING: [Synth 8-327] inferring latch for variable 'MUX_SEL_A_INST_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:57]
+WARNING: [Synth 8-327] inferring latch for variable 'MUX_SEL_REG_RAM_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:58]
+WARNING: [Synth 8-327] inferring latch for variable 'CS_RAM_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:54]
+WARNING: [Synth 8-327] inferring latch for variable 'CS_REG_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:55]
+WARNING: [Synth 8-327] inferring latch for variable 'WE_RAM_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:65]
+WARNING: [Synth 8-327] inferring latch for variable 'WE_REG_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:66]
+WARNING: [Synth 8-327] inferring latch for variable 'CE_A_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/Instruction_Decoder.v:68]
+WARNING: [Synth 8-327] inferring latch for variable 'temp_carry_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ALU.v:22]
+WARNING: [Synth 8-327] inferring latch for variable 'temp_out_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/ALU.v:21]
 WARNING: [Synth 8-327] inferring latch for variable 'LED_out_reg' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/SEG_DECODER.v:14]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   17 Bit       Adders := 1     
-	   2 Input   16 Bit       Adders := 6     
-	   2 Input    6 Bit       Adders := 1     
+	   3 Input   17 Bit       Adders := 1     
+	   4 Input   16 Bit       Adders := 2     
+	   2 Input   16 Bit       Adders := 4     
+	   2 Input    6 Bit       Adders := 4     
 +---Registers : 
-	               32 Bit    Registers := 2     
 	               16 Bit    Registers := 1     
-	                6 Bit    Registers := 1     
+	                6 Bit    Registers := 3     
 	                4 Bit    Registers := 1     
 	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 5     
 +---RAMs : 
-	              512 Bit	(16 X 32 bit)          RAMs := 2     
+	              256 Bit	(16 X 16 bit)          RAMs := 2     
 +---Muxes : 
-	   2 Input   35 Bit        Muxes := 1     
-	   8 Input   35 Bit        Muxes := 1     
+	   2 Input   36 Bit        Muxes := 1     
 	   3 Input   16 Bit        Muxes := 1     
 	   2 Input   16 Bit        Muxes := 2     
-	  54 Input   16 Bit        Muxes := 1     
+	  22 Input   16 Bit        Muxes := 1     
 	  19 Input    7 Bit        Muxes := 1     
-	   2 Input    6 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 4     
+	   3 Input    6 Bit        Muxes := 1     
+	  55 Input    5 Bit        Muxes := 1     
 	   4 Input    4 Bit        Muxes := 1     
 	  61 Input    2 Bit        Muxes := 1     
 	   4 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 1     
-	  61 Input    1 Bit        Muxes := 7     
-	  54 Input    1 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 6     
+	  61 Input    1 Bit        Muxes := 13    
+	  55 Input    1 Bit        Muxes := 2     
 	   4 Input    1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
@@ -180,18 +188,68 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
-WARNING: [Synth 8-3936] Found unconnected internal register 'ram_unit/OUT_reg' and it is trimmed from '32' to '16' bits. [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/RAM.v:23]
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[3]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[2]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[0]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[1]  is always disabled
+WARNING: [Synth 8-264] enable of latch \inst_decoder_unit/PC_jmp_addr_reg[1]  is always disabled
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_reg) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_addr_reg[5]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_addr_reg[4]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_addr_reg[3]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_addr_reg[2]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_addr_reg[1]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_addr_reg[0]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[5]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[4]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[3]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[2]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[1]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/PC_jmp_nmbr_of_ticks_reg[0]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[15]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[14]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[13]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[12]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[11]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[10]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[9]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[8]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[7]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[6]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[5]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/RAM_addr_reg[4]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[15]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[14]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[13]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[12]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[11]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[10]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[9]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[8]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[7]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[6]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[5]) is unused and will be removed from module uP_top.
+WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[4]) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/INSTA_nmbr_reg[15]) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/INSTA_nmbr_reg[3]) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/INSTA_nmbr_reg[2]) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/INSTA_nmbr_reg[1]) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/MUX_SEL_A_INST_reg) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/MUX_SEL_REG_RAM_reg) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/CS_RAM_reg) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/CS_REG_reg) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/WE_RAM_reg) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/WE_REG_reg) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (alu_unit/temp_carry_reg) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[6]) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[5]) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[4]) is unused and will be removed from module uP_top.
@@ -199,11 +257,9 @@ WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[3]
 WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[2]) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[1]) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (seg_disp_decoder_unit/LED_out_reg[0]) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[2]) is unused and will be removed from module uP_top.
-WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[1]) is unused and will be removed from module uP_top.
 WARNING: [Synth 8-3332] Sequential element (inst_decoder_unit/REG_addr_reg[0]) is unused and will be removed from module uP_top.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -223,6 +279,16 @@ ROM: Preliminary Mapping Report
 |uP_top              | inst_decoder_unit/CS_REG          | 64x1          | LUT            | 
 +--------------------+-----------------------------------+---------------+----------------+
 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+-----------------------+-----------+----------------------+----------------+
+|Module Name | RTL Object            | Inference | Size (Depth x Width) | Primitives     | 
++------------+-----------------------+-----------+----------------------+----------------+
+|uP_top      | ram_unit/MEM_reg      | Implied   | 16 x 16              | RAM16X1S x 16  | 
+|uP_top      | regs_unit/REG_MEM_reg | Implied   | 16 x 16              | RAM16X1S x 16  | 
++------------+-----------------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
 ---------------------------------------------------------------------------------
 Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
@@ -230,19 +296,34 @@ Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 1557.121 ; gain = 642.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+-----------------------+-----------+----------------------+----------------+
+|Module Name | RTL Object            | Inference | Size (Depth x Width) | Primitives     | 
++------------+-----------------------+-----------+----------------------+----------------+
+|uP_top      | ram_unit/MEM_reg      | Implied   | 16 x 16              | RAM16X1S x 16  | 
+|uP_top      | regs_unit/REG_MEM_reg | Implied   | 16 x 16              | RAM16X1S x 16  | 
++------------+-----------------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Technology Mapping : Time (s): cpu = 00:00:24 ; elapsed = 00:00:26 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -260,37 +341,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished IO Insertion : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -303,39 +384,49 @@ Report BlackBoxes:
 +-+--------------+----------+
 
 Report Cell Usage: 
-+------+-------+------+
-|      |Cell   |Count |
-+------+-------+------+
-|1     |BUFG   |     1|
-|2     |CARRY4 |     5|
-|3     |LUT1   |     1|
-|4     |LUT2   |     4|
-|5     |FDRE   |    24|
-|6     |IBUF   |     1|
-|7     |OBUF   |    12|
-+------+-------+------+
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     2|
+|2     |CARRY4   |    17|
+|3     |LUT1     |     1|
+|4     |LUT2     |    10|
+|5     |LUT3     |    59|
+|6     |LUT4     |    26|
+|7     |LUT5     |    58|
+|8     |LUT6     |    83|
+|9     |MUXF7    |     9|
+|10    |RAM16X1S |    32|
+|11    |FDCE     |     8|
+|12    |FDRE     |    42|
+|13    |LD       |    33|
+|14    |IBUF     |     3|
+|15    |OBUF     |    13|
++------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 34 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:24 . Memory (MB): peak = 1561.695 ; gain = 553.125
-Synthesis Optimization Complete : Time (s): cpu = 00:00:25 ; elapsed = 00:00:25 . Memory (MB): peak = 1561.695 ; gain = 646.934
+Synthesis finished with 0 errors, 0 critical warnings and 87 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:29 . Memory (MB): peak = 1557.121 ; gain = 555.004
+Synthesis Optimization Complete : Time (s): cpu = 00:00:29 ; elapsed = 00:00:31 . Memory (MB): peak = 1557.121 ; gain = 642.727
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1561.695 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 5 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1557.121 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 91 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1561.695 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1557.121 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-No Unisim elements were transformed.
+  A total of 65 instances were transformed.
+  LD => LDCE: 33 instances
+  RAM16X1S => RAM32X1S (RAMS32): 32 instances
 
-Synth Design complete | Checksum: cd8e9371
+Synth Design complete | Checksum: c355a7ef
 INFO: [Common 17-83] Releasing license: Synthesis
-49 Infos, 50 Warnings, 0 Critical Warnings and 0 Errors encountered.
+51 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:30 . Memory (MB): peak = 1561.695 ; gain = 1036.211
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1561.695 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:33 ; elapsed = 00:00:45 . Memory (MB): peak = 1557.121 ; gain = 1031.711
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1557.121 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.runs/synth_1/uP_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file uP_top_utilization_synth.rpt -pb uP_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Nov 17 01:46:16 2024...
+INFO: [Common 17-206] Exiting Vivado at Sun Nov 24 00:53:35 2024...

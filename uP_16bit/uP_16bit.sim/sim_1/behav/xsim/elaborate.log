@@ -5,8 +5,8 @@ Running: D:/Bibado/Vivado/2023.2/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 4 for port 'ADDR' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:111]
-WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 4 for port 'ADDR' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:126]
+WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 4 for port 'ADDR' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:128]
+WARNING: [VRFC 10-3091] actual bit length 16 differs from formal bit length 4 for port 'ADDR' [C:/Users/skobe/Desktop/uP/16-bit_uP/uP_16bit/uP_16bit.srcs/sources_1/new/uP_top.v:143]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis
@@ -17,6 +17,7 @@ Compiling module xil_defaultlib.Instruction_Decoder
 Compiling module xil_defaultlib.RAM
 Compiling module xil_defaultlib.REGs
 Compiling module xil_defaultlib.Mux2x1
+Compiling module xil_defaultlib.D_flop
 Compiling module xil_defaultlib.ALU
 Compiling module xil_defaultlib.Accumulator
 Compiling module xil_defaultlib.Accumulator_splitter

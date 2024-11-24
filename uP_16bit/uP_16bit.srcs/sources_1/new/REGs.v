@@ -13,16 +13,13 @@ module REGs #(
         output [DATA_WIDTH-1:0] OUT
     );
     
-    reg [DATA_WIDTH-1:0] REG_mem [2**DEPTH:0];
-    reg [DATA_WIDTH-1:0] reg_out;
+    reg [DATA_WIDTH-1:0] REG_MEM [2**DEPTH:0];
     
     always @(posedge CLK) begin
-        if (CS & WE)
-            REG_mem[ADDR] <= D;
-            
-        if (CS & ~WE)
-            reg_out <= REG_mem[ADDR];
+        if (CS)
+            if (WE)
+                REG_MEM[ADDR] <= D;
     end
     
-    assign OUT = (CS & ~WE) ? reg_out : 'hz;
+    assign OUT = (CS & ~WE) ? REG_MEM[ADDR] : 'hz;
 endmodule

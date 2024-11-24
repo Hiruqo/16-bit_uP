@@ -135,11 +135,11 @@
     
     // 111010 - JMP rA                  <- JMP <- jump to 'rA' address in PC_Counter
     parameter JMP_rA           = 6'b111010;
-    // {JMP_rA, 16'd0, 16'd<address to jump>}
+    // {JMP_rA, 16'd0, {10'd0, 6'd<address to jump>}}
     
-    // 111011 - JMP_pathed rA, ra       <- JMP_pathed <- jump to 'rA' address in PC_Counter with return 'ra' address
+    // 111011 - JMP_pathed rA, ra       <- JMP_pathed <- jump to 'rA' address in PC_Counter with nmr of cycles to do from that 'ra' address
     parameter JMP_rA_ra        = 6'b111011;
-    // {JMP_rA_rA, 16'd{10'd0 ,6'd<addr to jump>}, 16'd{10'd0 ,6'd<current addr>}}
+    // {JMP_rA_rA, 16'd{10'd0 ,6'd<addr to jump>}, 16'd{10'd0 ,6'd<nmbr of cycles>}}
     
     // NOT used
     // 111100
@@ -157,6 +157,5 @@
     
     // <n>, A     <- acc to RAM
     // R<n>, A    <- acc to REG
-    
     
 `endif

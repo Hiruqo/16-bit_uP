@@ -13,13 +13,13 @@
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
       <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
-      <Cursor1Time time="112.310 ns"></Cursor1Time>
+      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="137"></NameColumnWidth>
-      <ValueColumnWidth column_width="59"></ValueColumnWidth>
+      <NameColumnWidth column_width="238"></NameColumnWidth>
+      <ValueColumnWidth column_width="98"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="69" />
+   <WVObjectSize size="86" />
    <wvobject fp_name="/TB/CLK" type="logic">
       <obj_property name="ElementShortName">CLK</obj_property>
       <obj_property name="ObjectShortName">CLK</obj_property>
@@ -64,6 +64,42 @@
       <obj_property name="ElementShortName">NOOP_FLAG</obj_property>
       <obj_property name="ObjectShortName">NOOP_FLAG</obj_property>
    </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/PC_JMP" type="logic">
+      <obj_property name="ElementShortName">PC_JMP</obj_property>
+      <obj_property name="ObjectShortName">PC_JMP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/jmp_pending" type="logic">
+      <obj_property name="ElementShortName">jmp_pending</obj_property>
+      <obj_property name="ObjectShortName">jmp_pending</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/PC_JMP_PATHED" type="logic">
+      <obj_property name="ElementShortName">PC_JMP_PATHED</obj_property>
+      <obj_property name="ObjectShortName">PC_JMP_PATHED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/jmp_pathed" type="logic">
+      <obj_property name="ElementShortName">jmp_pathed</obj_property>
+      <obj_property name="ObjectShortName">jmp_pathed</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/jmp_origin_holder" type="array">
+      <obj_property name="ElementShortName">jmp_origin_holder[5:0]</obj_property>
+      <obj_property name="ObjectShortName">jmp_origin_holder[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/jpm_pathed_counter" type="array">
+      <obj_property name="ElementShortName">jpm_pathed_counter[5:0]</obj_property>
+      <obj_property name="ObjectShortName">jpm_pathed_counter[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/jmp_ADDR" type="array">
+      <obj_property name="ElementShortName">jmp_ADDR[5:0]</obj_property>
+      <obj_property name="ObjectShortName">jmp_ADDR[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/jmp_NMBR_OF_TICKS" type="array">
+      <obj_property name="ElementShortName">jmp_NMBR_OF_TICKS[5:0]</obj_property>
+      <obj_property name="ObjectShortName">jmp_NMBR_OF_TICKS[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/pc_unit/PATHED_JUMP_END_FLAG" type="logic">
+      <obj_property name="ElementShortName">PATHED_JUMP_END_FLAG</obj_property>
+      <obj_property name="ObjectShortName">PATHED_JUMP_END_FLAG</obj_property>
+   </wvobject>
    <wvobject fp_name="/TB/test_unit/pc_unit/Q" type="array">
       <obj_property name="ElementShortName">Q[5:0]</obj_property>
       <obj_property name="ObjectShortName">Q[5:0]</obj_property>
@@ -98,9 +134,21 @@
       <obj_property name="ElementShortName">PC_noop</obj_property>
       <obj_property name="ObjectShortName">PC_noop</obj_property>
    </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_jmp" type="logic">
+      <obj_property name="ElementShortName">PC_jmp</obj_property>
+      <obj_property name="ObjectShortName">PC_jmp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_jmp_pathed" type="logic">
+      <obj_property name="ElementShortName">PC_jmp_pathed</obj_property>
+      <obj_property name="ObjectShortName">PC_jmp_pathed</obj_property>
+   </wvobject>
    <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_jmp_addr" type="array">
       <obj_property name="ElementShortName">PC_jmp_addr[5:0]</obj_property>
       <obj_property name="ObjectShortName">PC_jmp_addr[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_jmp_nmbr_of_ticks" type="array">
+      <obj_property name="ElementShortName">PC_jmp_nmbr_of_ticks[5:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_jmp_nmbr_of_ticks[5:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/TB/test_unit/inst_decoder_unit/PC_wrap" type="logic">
       <obj_property name="ElementShortName">PC_wrap</obj_property>
@@ -246,6 +294,26 @@
       <obj_property name="ElementShortName">OUT[15:0]</obj_property>
       <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
    </wvobject>
+   <wvobject type="divider" fp_name="divider549">
+      <obj_property name="label">D_FLOP_CARRY_IN</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/D_Carry_flop_unit/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/D_Carry_flop_unit/RST" type="logic">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/D_Carry_flop_unit/D" type="logic">
+      <obj_property name="ElementShortName">D</obj_property>
+      <obj_property name="ObjectShortName">D</obj_property>
+   </wvobject>
+   <wvobject fp_name="/TB/test_unit/D_Carry_flop_unit/Q" type="logic">
+      <obj_property name="ElementShortName">Q</obj_property>
+      <obj_property name="ObjectShortName">Q</obj_property>
+   </wvobject>
    <wvobject type="divider" fp_name="divider57">
       <obj_property name="label">ALU</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -297,5 +365,6 @@
    <wvobject fp_name="/TB/test_unit/acu_unit/OUT" type="array">
       <obj_property name="ElementShortName">OUT[15:0]</obj_property>
       <obj_property name="ObjectShortName">OUT[15:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>
