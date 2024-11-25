@@ -29,3 +29,5 @@ set_property src_info {type:XDC file:1 line:29 export:INPUT save:INPUT read:READ
 set_property PACKAGE_PIN V5 [get_ports {SEG_NMBR_OUT[1]}]
 set_property src_info {type:XDC file:1 line:30 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN U7 [get_ports {SEG_NMBR_OUT[0]}]
+set_property src_info {type:XDC file:1 line:33 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN P1 [get_ports ZERO]

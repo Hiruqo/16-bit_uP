@@ -14,16 +14,16 @@ module ANODE_SWITCHER(
         refresh_counter <= refresh_counter + 1;
        
         if (refresh_counter[19:18] == 2'b00) begin
-            ANODES <= 4'b1000;
+            ANODES <= 4'b0111;
             ANODE_POINTER <= 2'b00;
         end else if (refresh_counter[19:18] == 2'b01) begin
-            ANODES <= 4'b0100;
+            ANODES <= 4'b1011;
             ANODE_POINTER <= 2'b01;
         end else if (refresh_counter[19:18] == 2'b10) begin
-            ANODES <= 4'b0010;
+            ANODES <= 4'b1101;
             ANODE_POINTER <= 2'b10;
         end else if (refresh_counter[19:18] == 2'b11) begin
-            ANODES <= 4'b0001;
+            ANODES <= 4'b1110;
             ANODE_POINTER <= 2'b11;
         end 
     end

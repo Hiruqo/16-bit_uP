@@ -1,0 +1,89 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sun Nov 24 17:00:54 2024
+| Host         : DESKTOP-HGV327J running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file uP_top_control_sets_placed.rpt
+| Design       : uP_top
+| Device       : xc7a35t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    11 |
+|    Minimum number of control sets                        |    11 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    41 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    11 |
+| >= 0 to < 4        |     5 |
+| >= 4 to < 6        |     0 |
+| >= 6 to < 8        |     2 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     4 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              53 |           22 |
+| No           | No                    | Yes                    |               5 |            4 |
+| No           | Yes                   | No                     |               7 |            5 |
+| Yes          | No                    | No                     |              16 |            6 |
+| Yes          | No                    | Yes                    |               6 |            3 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-------------------------+-------------------------------+-------------------------+------------------+----------------+--------------+
+|       Clock Signal      |         Enable Signal         |     Set/Reset Signal    | Slice Load Count | Bel Load Count | Bels / Slice |
++-------------------------+-------------------------------+-------------------------+------------------+----------------+--------------+
+|  pc_unit/Q_reg[1]_0     |                               |                         |                1 |              1 |         1.00 |
+|  anode_switch_unit/E[0] |                               | anode_switch_unit/AS[0] |                1 |              1 |         1.00 |
+|  pc_unit/Q_reg[4]_1[0]  |                               |                         |                1 |              2 |         2.00 |
+|  btn_debounced_BUFG     |                               | RST_btn_IBUF            |                2 |              2 |         1.00 |
+|  CLK_IBUF_BUFG          |                               | RST_btn_IBUF            |                2 |              3 |         1.50 |
+|  btn_debounced_BUFG     | pc_unit/p_3_in                | RST_btn_IBUF            |                3 |              6 |         2.00 |
+|  anode_switch_unit/E[0] |                               | anode_switch_unit/AS[1] |                4 |              6 |         1.50 |
+|  btn_debounced_BUFG     | inst_decoder_unit/p_0_in      |                         |                4 |             16 |         4.00 |
+|  btn_debounced_BUFG     | inst_decoder_unit/Q_reg[4][0] |                         |                6 |             16 |         2.67 |
+|  pc_unit/E[0]           |                               |                         |               13 |             24 |         1.85 |
+|  CLK_IBUF_BUFG          |                               |                         |                7 |             26 |         3.71 |
++-------------------------+-------------------------------+-------------------------+------------------+----------------+--------------+
+
+

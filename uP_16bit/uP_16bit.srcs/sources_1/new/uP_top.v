@@ -34,13 +34,25 @@ wire ALU_CARRY;
 // =========================================================
 
 // -----------------------------
+// -- Button Debouncer
+// --
+wire btn_debounced;
+
+Debouncer debouncer_unit(
+    .CLK(CLK),
+    .RST(RST_btn),
+    .D(CLK_btn),
+    .OUT(btn_debounced)
+);
+
+// -----------------------------
 // -- PC_Counter
 // --
 wire PC_PATHED_JUMP_END_FLAG;
 wire [5:0] PC_Q;
 
 PC_Counter pc_unit(
-    .CLK(CLK_btn),
+    .CLK(btn_debounced),
     .RST(RST_btn),
     .WRAP_FLAG(INSTRUCTION_PC_WRAP),
     .NOOP_FLAG(INSTRUCTION_NOOP),
@@ -67,8 +79,8 @@ ROM rom_unit(
 // --
 wire [5:0] INSTRUCTION_ALU_OPERATION;
 
-wire [15:0] INSTRUCTION_RAM_ADDR;
-wire [15:0] INSTRUCTION_REG_ADDR;
+wire [3:0] INSTRUCTION_RAM_ADDR;
+wire [3:0] INSTRUCTION_REG_ADDR;
 
 wire [15:0] INSTRUCTION_INSTA_NMBR;
 
@@ -84,7 +96,7 @@ wire INSTRUCTION_WE_REG;
 wire INSTRUCTION_CE_A;
 
 Instruction_Decoder inst_decoder_unit(
-    .CLK(CLK_btn),
+    .CLK(btn_debounced),
     
     .INSTRUCTION(ROM_OUT),
     
@@ -123,7 +135,7 @@ Instruction_Decoder inst_decoder_unit(
 wire [15:0] RAM_OUT_DATA;
 
 RAM ram_unit(
-    .CLK(CLK_btn),
+    .CLK(btn_debounced),
     .CS(INSTRUCTION_CS_RAM),
     .ADDR(INSTRUCTION_RAM_ADDR),
     .WE(INSTRUCTION_WE_RAM),
@@ -138,7 +150,7 @@ RAM ram_unit(
 wire [15:0] REG_OUT_DATA;
 
 REGs regs_unit(
-    .CLK(CLK_btn),
+    .CLK(btn_debounced),
     .CS(INSTRUCTION_CS_REG),
     .ADDR(INSTRUCTION_REG_ADDR),
     .WE(INSTRUCTION_WE_REG),
@@ -176,7 +188,7 @@ Mux2x1 mux_reg_ram_unit(
 wire D_FLOP_CARRY_IN;
 
 D_flop D_Carry_flop_unit(
-    .CLK(CLK_btn),
+    .CLK(btn_debounced),
     .RST(RST_btn),
     .D(ALU_CARRY),
     .Q(D_FLOP_CARRY_IN)
@@ -204,7 +216,7 @@ ALU alu_unit(
 wire [15:0] A_OUT;
 
 Accumulator acu_unit(
-    .CLK(CLK_btn),
+    .CLK(btn_debounced),
     .CE(INSTRUCTION_CE_A),
     .D(ALU_OUT),
     .OUT(A_OUT)
@@ -241,6 +253,7 @@ ANODE_SWITCHER anode_switch_unit(
 // --
 SEG_DECODER seg_disp_decoder_unit(
     .ANODE_POINTER(ANODE_SW_POINTER_OUT),
+    .PC_DATA(PC_Q),
     .ACU_DATA(A_FOR_TESTING),
     .DATA_OUT(SEG_NMBR_OUT)                 // 7'bxxxxxxx number
 );

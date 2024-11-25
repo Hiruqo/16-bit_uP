@@ -26,7 +26,7 @@ initial begin
     RST_btn <= 1; 
 end
 
-always #10 CLK = ~CLK;
+always #1 CLK = ~CLK;
 
 initial begin
     repeat (5) @(posedge CLK);

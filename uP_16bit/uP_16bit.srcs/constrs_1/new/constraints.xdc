@@ -28,3 +28,6 @@ set_property PACKAGE_PIN V8 [get_ports {SEG_NMBR_OUT[3]}]
 set_property PACKAGE_PIN U5 [get_ports {SEG_NMBR_OUT[2]}]
 set_property PACKAGE_PIN V5 [get_ports {SEG_NMBR_OUT[1]}]
 set_property PACKAGE_PIN U7 [get_ports {SEG_NMBR_OUT[0]}]
+
+set_property IOSTANDARD LVCMOS33 [get_ports ZERO]
+set_property PACKAGE_PIN P1 [get_ports ZERO]
