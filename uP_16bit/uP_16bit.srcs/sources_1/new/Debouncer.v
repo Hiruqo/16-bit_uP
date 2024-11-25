@@ -12,10 +12,10 @@ module Debouncer(
     // wires for D flip-flops
     wire Q0, Q1, Q2, nQ2;
     
-    Prescaler #(12_500_00) (CLK, clk_slowed);
-    D_flop (clk_slowed, RST, D,  Q0);
-    D_flop (clk_slowed, RST, Q0, Q1);
-    D_flop (clk_slowed, RST, Q1, Q2);
+    Prescaler #(12_500_00) prescaler_unit (CLK, clk_slowed);
+    D_flop flop0 (clk_slowed, RST, D,  Q0);
+    D_flop flop1 (clk_slowed, RST, Q0, Q1);
+    D_flop flop2 (clk_slowed, RST, Q1, Q2);
     
     assign nQ2 = ~Q2;
     assign OUT = Q1 & nQ2;
