@@ -1,0 +1,17 @@
+SPECIFICATION
+1. 16'b ALU inputs data signals
+2. 6'b ALU input operation code
+3. 1'b ALU input carry-in signal
+4. 1'b ALU output carry-out & zero-flag signals
+5. 1'b Accumulator input clock & clock enable signal
+6. 16'b Accumulator input data signal
+7. 16'b Accumulator output data
+
+VERIF REQUIREMENTS
+1. DUT includes min. 4 operations:
+  - add
+  - sub
+  - not
+  - bit shift (left/right)
+2. DUT includes carry-out flag
+3. Accumulator refreshes output only with clock enable signal
