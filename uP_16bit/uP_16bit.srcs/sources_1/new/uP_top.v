@@ -52,7 +52,7 @@ wire PC_PATHED_JUMP_END_FLAG;
 wire [5:0] PC_Q;
 
 PC_Counter pc_unit(
-    .CLK(btn_debounced),
+    .CLK(CLK),
     .RST(RST_btn),
     .WRAP_FLAG(INSTRUCTION_PC_WRAP),
     .NOOP_FLAG(INSTRUCTION_NOOP),
@@ -96,7 +96,7 @@ wire INSTRUCTION_WE_REG;
 wire INSTRUCTION_CE_A;
 
 Instruction_Decoder inst_decoder_unit(
-    .CLK(btn_debounced),
+    .CLK(CLK),
     
     .INSTRUCTION(ROM_OUT),
     
@@ -135,7 +135,7 @@ Instruction_Decoder inst_decoder_unit(
 wire [15:0] RAM_OUT_DATA;
 
 RAM ram_unit(
-    .CLK(btn_debounced),
+    .CLK(CLK),
     .CS(INSTRUCTION_CS_RAM),
     .ADDR(INSTRUCTION_RAM_ADDR),
     .WE(INSTRUCTION_WE_RAM),
@@ -150,7 +150,7 @@ RAM ram_unit(
 wire [15:0] REG_OUT_DATA;
 
 REGs regs_unit(
-    .CLK(btn_debounced),
+    .CLK(CLK),
     .CS(INSTRUCTION_CS_REG),
     .ADDR(INSTRUCTION_REG_ADDR),
     .WE(INSTRUCTION_WE_REG),
@@ -188,7 +188,7 @@ Mux2x1 mux_reg_ram_unit(
 wire D_FLOP_CARRY_IN;
 
 D_flop D_Carry_flop_unit(
-    .CLK(btn_debounced),
+    .CLK(CLK),
     .RST(RST_btn),
     .D(ALU_CARRY),
     .Q(D_FLOP_CARRY_IN)
@@ -216,7 +216,7 @@ ALU alu_unit(
 wire [15:0] A_OUT;
 
 Accumulator acu_unit(
-    .CLK(btn_debounced),
+    .CLK(CLK),
     .CE(INSTRUCTION_CE_A),
     .D(ALU_OUT),
     .OUT(A_OUT)

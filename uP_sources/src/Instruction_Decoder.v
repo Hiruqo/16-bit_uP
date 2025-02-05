@@ -1,0 +1,1305 @@
+`timescale 1ns / 1ps
+
+module Instruction_Decoder(
+    input wire CLK,
+
+    // instruction
+    input wire [37:0] INSTRUCTION,
+    
+    // PC pathed jump cancel
+    input wire PC_jmp_pathed_end,
+    
+    // PC management
+    output reg PC_noop,
+    output reg PC_jmp,
+    output PC_jmp_pathed,
+    output reg [5:0] PC_jmp_addr,       // floating for now
+    output reg [5:0] PC_jmp_nmbr_of_ticks,
+    output reg PC_wrap,                 // floating for now
+    
+    // ALU instruction
+    output [5:0] ALU_operation,
+    
+    // Memory
+    output reg [15:0] RAM_addr,
+    output reg [15:0] REG_addr,
+    
+    // #
+    output reg [15:0] INSTA_nmbr,
+    
+    // Muxes
+    output reg MUX_SEL_A_INST,          // 0 <- A   ,1 <- INST
+    output reg MUX_SEL_REG_RAM,         // 0 <- REG ,1 <- RAM
+    
+    // CS
+    output reg CS_RAM,
+    output reg CS_REG,
+    
+    // WE
+    output reg WE_RAM,
+    output reg WE_REG,
+    
+    // CE
+    output reg CE_A
+    );
+
+    `include "instr_params.txt"
+    
+    always @(INSTRUCTION)
+        case (INSTRUCTION[37:32])
+            NOOP : begin
+                PC_noop <= 1'b1;
+                PC_jmp  <= 1'b0;
+                
+                CS_RAM          <= CS_RAM;
+                CS_REG          <= CS_REG;
+                                
+                MUX_SEL_A_INST      <= MUX_SEL_A_INST;
+                MUX_SEL_REG_RAM     <= MUX_SEL_REG_RAM;
+                
+                INSTA_nmbr      <= INSTA_nmbr;
+                
+                RAM_addr        <= RAM_addr;
+                REG_addr        <= REG_addr;
+                
+                WE_RAM          <= WE_RAM;
+                WE_REG          <= WE_REG;
+                
+                CE_A            <= CE_A;
+            end
+            
+            MOV_A_INST : begin
+                PC_noop         <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+                
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            MOV_A_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            MOV_A_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            MOV_REG_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b1;
+                
+                CE_A            <= 1'b0;
+            end
+            
+            MOV_RAM_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b1;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b0;
+            end
+            
+            ADD_RAM_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            ADD_REG_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            ADD_RAM_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            ADD_REG_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_INST_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[31:16];
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_INST_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[31:16];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_A_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_A_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_RAM_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_RAM_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_REG_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            SUB_REG_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            INC_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+                
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            INC_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            INC_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            INC_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            DEC_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            DEC_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            DEC_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            DEC_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_INST_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_INST_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[31:16];
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_A_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_A_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_REG_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_REG_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_RAM_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_H_RAM_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_E_INST_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[31:16];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_E_INST_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_E_A_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+                
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+             
+            CMP_E_A_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+                
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_INST_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_INST_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[31:16];
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_A_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_A_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_REG_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_REG_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[31:16];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_RAM_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            CMP_L_RAM_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[31:16];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            NOT_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            NOT_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            NOT_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            NOT_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            R_SHIFT_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            R_SHIFT_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            R_SHIFT_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            R_SHIFT_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            L_SHIFT_INST : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= INSTRUCTION[15:0];
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            L_SHIFT_A : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            L_SHIFT_RAM : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b1;
+                CS_REG          <= 1'b0;
+                                
+                MUX_SEL_A_INST      <= 1'b0;
+                MUX_SEL_REG_RAM     <= 1'b1;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= INSTRUCTION[15:0];
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            L_SHIFT_REG : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp  <= 1'b0;
+            
+                CS_RAM          <= 1'b0;
+                CS_REG          <= 1'b1;
+                                
+                MUX_SEL_A_INST      <= 1'b1;
+                MUX_SEL_REG_RAM     <= 1'b0;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= INSTRUCTION[15:0];
+                
+                WE_RAM          <= 1'b0;
+                WE_REG          <= 1'b0;
+                
+                CE_A            <= 1'b1;
+            end
+            
+            JMP_rA : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp <= 1'b1;
+                PC_jmp_addr <= INSTRUCTION[5:0];
+            end
+            
+            JMP_rA_ra : begin
+                PC_noop <= 1'b0; // Close the NOOP
+                PC_jmp_addr <= INSTRUCTION[5:0];
+                PC_jmp_nmbr_of_ticks <= INSTRUCTION[21:16];
+            end
+            
+            default : begin
+                PC_noop <= 1'b1;
+                PC_jmp  <= 1'b0;
+                
+                CS_RAM          <= 1'bx;
+                CS_REG          <= 1'bx;
+                                
+                MUX_SEL_A_INST      <= 1'bx;
+                MUX_SEL_REG_RAM     <= 1'bx;
+                
+                INSTA_nmbr      <= 16'hxxxx;
+                
+                RAM_addr        <= 16'hxxxx;
+                REG_addr        <= 16'hxxxx;
+                
+                WE_RAM          <= 1'bx;
+                WE_REG          <= 1'bx;
+                
+                CE_A            <= 1'b0;
+            end
+        endcase
+    
+    assign ALU_operation = INSTRUCTION[37:32];
+    assign PC_jmp_pathed = ((INSTRUCTION[37:32] == JMP_rA_ra) && PC_jmp_pathed_end) ? 1'b1 : 1'b0;
+    
+endmodule
