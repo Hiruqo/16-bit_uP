@@ -1,0 +1,58 @@
+`ifndef SCOREBOARD_SV
+`define SCOREBOARD_SV
+
+`include "share_pkg.sv"
+
+class Scoreboard;
+    mailbox mon2sb;
+
+    logic [7:0] expected_out;
+    logic expected_carry;
+  
+    function new(mailbox mon2sb);
+        this.mon2sb = mon2sb;
+    endfunction
+
+    task run();
+        forever begin
+            logic [7:0] expected_out;
+            logic expected_carry;
+            Transaction tr;
+            mon2sb.get(tr);
+            tr.display();
+          
+            case(tr.operation)
+                3'b000: begin
+                  {expected_carry, expected_out} = tr.in0 + tr.in1 + tr.carry_in; // ADD
+                  $display("Mismatch: Expected %d, Got %d", expected_out, (tr.in0 + tr.in1 + tr.carry_in));
+                end
+                3'b001: begin
+                  expected_out = tr.in0 - tr.in1 + tr.carry_in; // SUBTRACT
+                  $display("Mismatch: Expected %d, Got %d", expected_out, (tr.in0 - tr.in1 + tr.carry_in));
+                end
+                3'b010: begin
+                  expected_out = tr.in0 & tr.in1; // AND_OP
+                  $display("Mismatch: Expected %d, Got %d", expected_out, (tr.in0 & tr.in1));
+                end
+                3'b011: begin
+                  expected_out = tr.in0 | tr.in1; // OR_OP
+                  $display("Mismatch: Expected %d, Got %d", expected_out, (tr.in0 | tr.in1));
+                end
+                3'b100: begin
+                  expected_out = tr.in0 ^ tr.in1; // XOR_OP
+                  $display("Mismatch: Expected %d, Got %d", expected_out, (tr.in0 ^ tr.in1));
+                end
+                3'b101: begin
+                  expected_out = ~tr.in0; // NOT_OP
+                  $display("Mismatch: Expected %d, Got %d", expected_out, (~tr.in0));
+                end
+                default: begin
+                  expected_out = tr.in1; // LOAD
+                  $display("Mismatch: Expected %d, Got %d", expected_out, tr.in1);
+                end
+            endcase
+        end
+    endtask
+endclass
+
+`endif
